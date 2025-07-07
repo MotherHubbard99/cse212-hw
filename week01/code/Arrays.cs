@@ -1,3 +1,5 @@
+using System.Runtime.Serialization;
+
 public static class Arrays
 {
     /// <summary>
@@ -8,12 +10,19 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
-
-        return []; // replace this return statement with your own
+        // number is the number we need to start with and how much we need to increment each time
+        // length is the amount of numbers that need to be printed
+        //create an array that will hold doubles
+        double[] multiples = new double[length];
+        //start at zero and add one to the counter each time
+        for (int i = 0; i < length; i++)
+        {
+            //arrayholder(index) = the number * the counter plus 1, to increment each time
+            //example 3*1, 3*2, 3*3
+            multiples[i] = number * (i + 1);
+        }
+        //return the array that was created
+        return multiples;
     }
 
     /// <summary>
@@ -25,9 +34,15 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        //slice the list in 2 parts
+        //start the list with the 'amount' sent through to the end of the list
+        List<int> endSlice = data.GetRange(data.Count - amount, amount);
+        //now find the other list items starting with zero and stop when the 'amount' is hit
+        List<int> startSlice = data.GetRange(0, data.Count - amount);
+        //Clear out the original list
+        data.Clear();
+        data.AddRange(endSlice);
+        data.AddRange(startSlice);
+
     }
 }
