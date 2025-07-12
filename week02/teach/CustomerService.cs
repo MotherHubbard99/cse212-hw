@@ -3,7 +3,8 @@
 /// added and allows customers to be serviced.
 /// </summary>
 public class CustomerService {
-    public static void Run() {
+    public static void Run()
+    {
         // Example code to see what's in the customer service queue:
         // var cs = new CustomerService(10);
         // Console.WriteLine(cs);
@@ -11,24 +12,40 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
+        // Scenario:Adding a customer and then serving the customer 
         // Expected Result: 
         Console.WriteLine("Test 1");
+        var service = new CustomerService(4);
+        service.AddNewCustomer();
+        service.ServeCustomer();
 
-        // Defect(s) Found: 
+        // Defect(s) Found: in serve customer it was deleting the customer from the queue before saving the information
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Can I add 2 customers and then serve them in the correct order?
+        // Expected Result: To display the customers in the same order they were entered
         Console.WriteLine("Test 2");
+        service = new CustomerService(4);
+        service.AddNewCustomer();
+        service.AddNewCustomer();
+        Console.WriteLine($"Before serving customer: {service}");
+        service.ServeCustomer();
+        service.ServeCustomer();
+        Console.WriteLine($"After serving customers: {service}");
 
-        // Defect(s) Found: 
+        // Defect(s) Found: None
 
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+        // Test 3
+        //Scenario: Can I serve a customer if there is no customer?
+        //expected Result: Display an error message
+        Console.WriteLine("Test 3");
+        service = new CustomerService(4);
+        service.ServeCustomer();
+        //Defect found: Needed to check the count of the queue to dsiplay an error message
     }
 
     private readonly List<Customer> _queue = new();
@@ -88,9 +105,20 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        //check to see if there are customers in the queue
+        if (_queue.Count <= 0)
+        {
+            Console.WriteLine("There are no customers in the queue. ");
+        }
+        else
+        {
+            //read and save the customer
+            var customer = _queue[0];
+            //remove the customer from the queue
+            _queue.RemoveAt(0);
+
+            Console.WriteLine(customer);
+        }
     }
 
     /// <summary>
