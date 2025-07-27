@@ -32,7 +32,20 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        //get the current location
+        var currentKey = (_currX, _currY);
+        //make sure current position is a valid position in the maze
+        if (!_mazeMap.ContainsKey(currentKey))
+            throw new InvalidOperationException("Current position is not vaild in the maze.");
+        bool[] directions = _mazeMap[currentKey];
+        //index 0 = left
+        bool canMoveLeft = directions[0];
+
+        if (!canMoveLeft)
+            throw new InvalidOperationException("Can't go that way!");
+
+        //move the marker one to the left
+        _currX -= 1;
     }
 
     /// <summary>
@@ -41,8 +54,22 @@ public class Maze
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        //get the current location
+        var currentKey = (_currX, _currY);
+        //make sure current position is a valid position in the maze
+        if (!_mazeMap.ContainsKey(currentKey))
+            throw new InvalidOperationException("Current position is not vaild in the maze.");
+        bool[] directions = _mazeMap[currentKey];
+        //index 1 = right
+        bool canMoveRight = directions[1];
+
+        if (!canMoveRight)
+            throw new InvalidOperationException("Can't go that way!");
+
+        //move the marker one to the right
+        _currX += 1;
     }
+
 
     /// <summary>
     /// Check to see if you can move up.  If you can, then move.  If you
@@ -50,7 +77,21 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        //get the current location
+        var currentKey = (_currX, _currY);
+        //make sure current position is a valid position in the maze
+        if (!_mazeMap.ContainsKey(currentKey))
+            throw new InvalidOperationException("Current position is not vaild in the maze.");
+        bool[] directions = _mazeMap[currentKey];
+        //index 2 = Up
+        bool canMoveUp = directions[2];
+
+        if (!canMoveUp)
+            throw new InvalidOperationException("Can't go that way!");
+
+        //move the marker one to the left
+        _currY -= 1;
+
     }
 
     /// <summary>
@@ -59,8 +100,22 @@ public class Maze
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        //get the current location
+        var currentKey = (_currX, _currY);
+        //make sure current position is a valid position in the maze
+        if (!_mazeMap.ContainsKey(currentKey))
+            throw new InvalidOperationException("Current position is not vaild in the maze.");
+        bool[] directions = _mazeMap[currentKey];
+        //index 3 = down
+        bool canMoveDown = directions[3];
+
+        if (!canMoveDown)
+            throw new InvalidOperationException("Can't go that way!");
+
+        //move the marker one to the left
+        _currY += 1;
     }
+
 
     public string GetStatus()
     {

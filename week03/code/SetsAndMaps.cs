@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -22,7 +23,20 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var seen = new HashSet<string>();
+        var result = new List<string>();
+
+        foreach (var word in words)
+        {
+            //reverse the word in question 
+            var reversed = new string(word.Reverse().ToArray());
+            //see if reversed matches any of the other words
+            if (seen.Contains(reversed))
+                result.Add($"{word} & {reversed}");
+            //otherwise add of to the seen set and move on
+            seen.Add(word);
+        }
+        return result.ToArray();
     }
 
     /// <summary>
@@ -43,6 +57,17 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+            //keep track of how many have earned the same degree
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+            }
+            else
+            {
+                degrees[degree] = 1;
+            }
+
         }
 
         return degrees;
@@ -67,7 +92,34 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        //force all of the words and letters to lowercase so it ignores cases while comparing
+        word1 = word1.ToLower();
+        word2 = word2.ToLower();
+        //check to see of the words are equal in length. If not return a false and don't bother with the rest of the code here
+        if (word1.Length != word2.Length)
+            return false;
+        var charCount = new Dictionary<char, int>();
+        //check the first word
+        foreach (char c in word1)
+        {
+            if (charCount.ContainsKey(c))
+                charCount[c]++;
+            else
+                charCount[c] = 1;
+        }
+        //check the first word
+        foreach (char c in word2)
+        {
+            //if there are no characters that match then return a false
+            if (!charCount.ContainsKey(c))
+                return false;
+            //subtract the count
+            charCount[c]--;
+            //if there are no characters that match then return a false
+            if (charCount[c] < 0)
+                return false;
+        }
+        return true;
     }
 
     /// <summary>
