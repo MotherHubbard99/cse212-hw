@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using System.Diagnostics;
 // DO NOT MODIFY THIS FILE
 
 [TestClass]
@@ -21,6 +21,7 @@ public class TreeInsertTests
         tree.Insert(10);
         tree.Insert(1);
         tree.Insert(6);
+        Debug.WriteLine(tree);
         Assert.AreEqual("<Bst>{1, 3, 4, 5, 6, 7, 10}", tree.ToString());
     }
 }

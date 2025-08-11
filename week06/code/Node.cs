@@ -11,7 +11,9 @@ public class Node
 
     public void Insert(int value)
     {
-        // TODO Start Problem 1
+        //make sure the value hasn't already been added to the tree
+        if (value == Data)
+            return;
 
         if (value < Data)
         {
@@ -33,13 +35,45 @@ public class Node
 
     public bool Contains(int value)
     {
-        // TODO Start Problem 2
-        return false;
+        //make sure the value hasn't already been added to the tree
+        if (value == Data)
+            return true;
+        else if (value < Data)
+        {
+            if (Left == null)
+                return false;
+            else if (Left.Contains(value))
+                return true;
+            else
+                return false;
+        }
+        else    //check right side
+            if (Right == null)
+            return false;
+        else if (Right.Contains(value))
+            return true;
+        else
+            return false;
     }
 
     public int GetHeight()
     {
-        // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        //initialize left height
+        int LeftHeight = 0;
+        //check to see if their is a left subtree
+        if (Left != null)
+        {
+            LeftHeight = Left.GetHeight();
+        }
+        //initialize the right height
+        int RightHeight = 0;
+        if (Right != null)
+        {
+            RightHeight = Right.GetHeight();
+        }
+        //The height of the root is 1, then add the taller of the right or left subtree
+        int TotalHeight = 1 + Math.Max(LeftHeight, RightHeight);
+
+        return TotalHeight;
     }
 }
